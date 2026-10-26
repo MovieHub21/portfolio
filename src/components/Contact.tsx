@@ -102,7 +102,7 @@ export default function Contact() {
                         Open Source
                       </span>
                       <span className="text-sm font-medium text-text group-hover:text-accent transition-colors">
-                        GitHub / Marvellous
+                        GitHub / MovieHub21
                       </span>
                     </div>
                   </div>
