@@ -33,7 +33,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             </div>
 
             {/* Visual Canvas / Gradient Stage */}
-            <div className="aspect-[16/10] relative flex items-center justify-center p-8 overflow-hidden">
+            <div className="relative flex items-center justify-center px-6 py-12 sm:p-8 sm:aspect-[16/10] overflow-hidden">
               <div
                 className="absolute inset-0 opacity-80 group-hover:scale-105 transition-transform duration-700"
                 style={{

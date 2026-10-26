@@ -1,7 +1,7 @@
 import { Suspense, useState, useCallback, Component } from 'react';
 import type React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
+import { Environment, Lightformer } from '@react-three/drei';
 import Laptop3D from './Laptop3D';
 import LaptopFallback from './LaptopFallback';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
@@ -96,7 +96,7 @@ export default function LaptopScene({ scrollProgress }: LaptopSceneProps) {
         aria-label="Interactive 3D Developer Laptop Workstation"
       >
         <Canvas
-          camera={{ position: [0, 0.45, 5.2], fov: 42 }}
+          camera={{ position: [0, 0.9, 6.8], fov: 40 }}
           dpr={isMobile ? [1, 1.25] : [1, 2]}
           gl={{
             antialias: true,
@@ -106,12 +106,17 @@ export default function LaptopScene({ scrollProgress }: LaptopSceneProps) {
           style={{ width: '100%', height: '100%', background: 'transparent' }}
         >
           <SceneLighting />
+          <Laptop3D
+            pointerPosition={pointer}
+            scrollProgress={scrollProgress}
+          />
+          {/* Own Suspense boundary so the environment loading never hides/re-shows the laptop */}
           <Suspense fallback={null}>
-            <Laptop3D
-              pointerPosition={pointer}
-              scrollProgress={scrollProgress}
-            />
-            <Environment preset="city" environmentIntensity={0.4} />
+            <Environment resolution={256} environmentIntensity={0.9}>
+              <Lightformer form="rect" intensity={3.5} color="#f8f4ed" position={[0, 5, 2]} rotation={[Math.PI / 2, 0, 0]} scale={[10, 4, 1]} />
+              <Lightformer form="rect" intensity={2} color="#c9a96e" position={[-5, 1, 2]} rotation={[0, Math.PI / 2, 0]} scale={[6, 3, 1]} />
+              <Lightformer form="rect" intensity={1.6} color="#8aa8e0" position={[5, 1, 1]} rotation={[0, -Math.PI / 2, 0]} scale={[6, 3, 1]} />
+            </Environment>
           </Suspense>
         </Canvas>
       </div>

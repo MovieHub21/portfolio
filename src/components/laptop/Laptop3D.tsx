@@ -1,10 +1,16 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Html, ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 import LaptopScreen from './LaptopScreen';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useReducedMotion } from '../../hooks/useReducedMotion';
+
+// Resting height of the whole laptop in the scene (lower = sits lower in the card)
+const REST_Y = -0.6;
+
+// How far the screen leans back from vertical (radians). ~0.28 ≈ 16°.
+const LID_TILT_BACK = -0.28;
 
 interface Laptop3DProps {
   pointerPosition: { x: number; y: number };
@@ -17,6 +23,15 @@ export default function Laptop3D({ pointerPosition, scrollProgress }: Laptop3DPr
   const isMobile = useMediaQuery('(max-width: 768px)');
   const prefersReduced = useReducedMotion();
 
+  // drei's <Html transform> can lose its content on the very first mount
+  // (its effect re-roots the same element while React is still committing).
+  // Mounting it one tick later gives it a clean element and a clean root.
+  const [screenReady, setScreenReady] = useState(false);
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setScreenReady(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
+
   // Subtle frame loop
   useFrame((state) => {
     const t = state.clock.getElapsedTime();
@@ -25,11 +40,11 @@ export default function Laptop3D({ pointerPosition, scrollProgress }: Laptop3DPr
       if (!prefersReduced) {
         // Floating motion + subtle mouse parallax
         groupRef.current.position.y =
-          Math.sin(t * 0.8) * 0.05 - 0.2 + scrollProgress * 0.4;
+          Math.sin(t * 0.8) * 0.05 + REST_Y + scrollProgress * 0.4;
 
-        // Base rotation: flattering 3/4 angle (approx -0.35 rad) responding to pointer
+        // Base rotation: gentle 3/4 angle (approx -0.18 rad) so the screen stays legible
         const targetRotY =
-          -0.35 + pointerPosition.x * 0.25 + scrollProgress * 0.4;
+          -0.18 + pointerPosition.x * 0.2 + scrollProgress * 0.4;
         const targetRotX =
           0.12 + pointerPosition.y * 0.15 - scrollProgress * 0.1;
 
@@ -58,31 +73,31 @@ export default function Laptop3D({ pointerPosition, scrollProgress }: Laptop3DPr
   // Metallic Aluminum Material properties
   const chassisMaterial = (
     <meshStandardMaterial
-      color="#181a20"
-      metalness={0.88}
-      roughness={0.25}
+      color="#3b3f4a"
+      metalness={0.45}
+      roughness={0.38}
       envMapIntensity={1.2}
     />
   );
 
   const darkTrimMaterial = (
     <meshStandardMaterial
-      color="#0a0b0e"
-      metalness={0.92}
-      roughness={0.15}
+      color="#14161b"
+      metalness={0.6}
+      roughness={0.3}
     />
   );
 
   const keyboardMaterial = (
     <meshStandardMaterial
-      color="#121318"
-      metalness={0.5}
+      color="#1b1d24"
+      metalness={0.35}
       roughness={0.65}
     />
   );
 
   return (
-    <group ref={groupRef} position={[0, -0.2, 0]} scale={isMobile ? 0.75 : 0.95}>
+    <group ref={groupRef} position={[0, REST_Y, 0]} scale={isMobile ? 0.72 : 0.88}>
       {/* ── BASE CHASSIS (Bottom Half) ─────────────────────────── */}
       <group position={[0, -0.08, 0.4]}>
         {/* Main Base Body */}
@@ -101,9 +116,9 @@ export default function Laptop3D({ pointerPosition, scrollProgress }: Laptop3DPr
         <mesh position={[0, 0.065, 0.65]}>
           <boxGeometry args={[1.2, 0.005, 0.8]} />
           <meshStandardMaterial
-            color="#1d2028"
-            metalness={0.85}
-            roughness={0.3}
+            color="#2d313c"
+            metalness={0.5}
+            roughness={0.35}
           />
         </mesh>
 
@@ -124,7 +139,7 @@ export default function Laptop3D({ pointerPosition, scrollProgress }: Laptop3DPr
           {/* Spacebar */}
           <mesh position={[0, 0.018, 0.47]}>
             <boxGeometry args={[1.2, 0.018, 0.17]} />
-            <meshStandardMaterial color="#1a1c22" metalness={0.6} roughness={0.5} />
+            <meshStandardMaterial color="#292c36" metalness={0.4} roughness={0.5} />
           </mesh>
         </group>
       </group>
@@ -135,11 +150,14 @@ export default function Laptop3D({ pointerPosition, scrollProgress }: Laptop3DPr
         {darkTrimMaterial}
       </mesh>
 
-      {/* ── DISPLAY LID (Screen Half, angled ~108 degrees) ────────── */}
+      {/* ── DISPLAY LID (Screen Half, opened ~106°) ───────────────────
+          rotation.x is measured from VERTICAL: 0 = screen standing straight up,
+          more negative = leaning further back. The old value (-π/2 + 0.32)
+          laid the lid almost flat, so the glass faced the ceiling. */}
       <group
         ref={lidRef}
         position={[0, 0.02, -0.9]}
-        rotation={[-Math.PI / 2 + 0.32, 0, 0]}
+        rotation={[LID_TILT_BACK, 0, 0]}
       >
         {/* Back Outer Shell */}
         <mesh position={[0, 1.25, -0.04]} castShadow>
@@ -171,6 +189,7 @@ export default function Laptop3D({ pointerPosition, scrollProgress }: Laptop3DPr
 
         {/* Embedded Interactive DOM Screen via Drei Html */}
         <group position={[0, 1.23, 0.02]}>
+          {screenReady && (
           <Html
             transform
             distanceFactor={1.9}
@@ -184,6 +203,7 @@ export default function Laptop3D({ pointerPosition, scrollProgress }: Laptop3DPr
           >
             <LaptopScreen scrollStage={scrollProgress > 0.4 ? 1 : 0} />
           </Html>
+          )}
         </group>
       </group>
 

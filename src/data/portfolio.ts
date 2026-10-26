@@ -3,7 +3,7 @@ export const personalInfo = {
   title: 'Web Developer',
   headline: 'I build digital experiences that work.',
   subheadline: 'Clean code, thoughtful design, and products that people actually enjoy using.',
-  bio: `I'm Marvellous — a web developer who turns ideas into interactive, fast, and polished digital products. I care about writing code that makes sense, designing interfaces that feel right, and building things that solve real problems.`,
+  bio: `I'm Marvellous, a web developer who turns ideas into interactive, fast, and polished digital products. I care about writing code that makes sense, designing interfaces that feel right, and building things that solve real problems.`,
   approach: `I believe great software comes from understanding the problem deeply before writing a single line of code. I focus on clean architecture, intuitive user experiences, and shipping products that work reliably across every device.`,
   email: 'marvellousoseh3@gmail.com',
   social: {
@@ -11,24 +11,111 @@ export const personalInfo = {
   },
 };
 
+
 export const skills = {
   frontend: {
-    label: 'Frontend',
-    items: ['React', 'TypeScript', 'Tailwind CSS', 'HTML5 / CSS3', 'JavaScript ES6+'],
+    label: 'Frontend Development',
+    items: [
+      'React',
+      'Next.js',
+      'TypeScript',
+      'JavaScript',
+      'HTML5 / CSS3',
+      'Tailwind CSS',
+      'Responsive Design',
+      'Accessibility',
+      'Framer Motion',
+    ],
   },
+
   backend: {
-    label: 'Backend',
-    items: ['Laravel', 'PHP', 'Node.js', 'REST APIs'],
+    label: 'Backend Development',
+    items: [
+      'Node.js',
+      'PHP',
+      'Laravel',
+      'REST APIs',
+      'API Integration',
+      'Authentication & Authorization',
+      'Server-Side Validation',
+      'Business Logic',
+    ],
   },
+
   database: {
-    label: 'Data & Storage',
-    items: ['MySQL', 'PostgreSQL', 'Redis'],
+    label: 'Databases & Storage',
+    items: [
+      'PostgreSQL',
+      'MySQL',
+      'Supabase',
+      'Redis',
+      'Database Design',
+      'SQL Query Optimization',
+      'Row-Level Security (RLS)',
+      'Database Migrations',
+    ],
   },
+
+  seo: {
+    label: 'SEO & Web Optimization',
+    items: [
+      'Technical SEO',
+      'On-Page SEO',
+      'Semantic HTML',
+      'Structured Data (JSON-LD)',
+      'Metadata Optimization',
+      'Sitemaps & Robots.txt',
+      'Core Web Vitals',
+      'Performance Optimization',
+      'Google Search Console',
+      'Google Analytics',
+    ],
+  },
+
+  deployment: {
+    label: 'DevOps & Deployment',
+    items: [
+      'Git',
+      'GitHub',
+      'Vercel',
+      'Docker',
+      'Linux',
+      'CI/CD',
+      'Environment Configuration',
+      'Domain & DNS Management',
+      'Cloudflare',
+      'Web Hosting',
+    ],
+  },
+
   tools: {
     label: 'Tools & Workflow',
-    items: ['Git', 'VS Code', 'Vite', 'Docker', 'Linux'],
+    items: [
+      'VS Code',
+      'Vite',
+      'npm',
+      'Browser DevTools',
+      'Debugging',
+      'Code Review',
+      'AI-Assisted Development',
+    ],
+  },
+
+  engineering: {
+    label: 'Software Engineering',
+    items: [
+      'Full-Stack Development',
+      'System Architecture',
+      'Responsive Web Applications',
+      'Third-Party Integrations',
+      'Web Security Fundamentals',
+      'Caching Strategies',
+      'Real-Time Applications',
+      'Maintainable Code',
+    ],
   },
 };
+
 
 export const processSteps = [
   {
