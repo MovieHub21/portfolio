@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
+    <div className="min-h-screen bg-bg text-text selection:bg-accent selection:text-bg font-body antialiased">
       <Navigation />
       <main>
         <Hero />

@@ -1,20 +1,26 @@
 @import "tailwindcss";
 
-/* ── Design Tokens ──────────────────────────────────────────── */
+@theme {
+  --font-display: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
-:root {
-  --color-bg: #0a0a0b;
-  --color-bg-secondary: #111113;
-  --color-text: #f0ece4;
-  --color-text-secondary: #8a8a8d;
+  --color-bg: #0a0a0c;
+  --color-bg-secondary: #111115;
+  --color-bg-card: #15151b;
+  --color-bg-card-hover: #1a1a22;
+  --color-text: #f2eee8;
+  --color-text-secondary: #9ea0a8;
+  --color-text-muted: #6b6d76;
   --color-accent: #c9a96e;
-  --color-accent-dim: rgba(201, 169, 110, 0.15);
-  --color-border: rgba(255, 255, 255, 0.06);
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --color-accent-light: #dfc28d;
+  --color-accent-dim: rgba(201, 169, 110, 0.12);
+  --color-accent-glow: rgba(201, 169, 110, 0.25);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-light: rgba(255, 255, 255, 0.14);
+  --color-border-accent: rgba(201, 169, 110, 0.35);
 }
 
-/* ── Base Reset ─────────────────────────────────────────────── */
+/* ── Base Reset & Typography ────────────────────────────────── */
 
 * {
   margin: 0;
@@ -26,35 +32,38 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #0a0a0c;
+  color: #f2eee8;
 }
 
 body {
   font-family: var(--font-body);
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 ::selection {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
+  background-color: #c9a96e;
+  color: #0a0a0c;
 }
 
-/* ── Scrollbar ──────────────────────────────────────────────── */
+/* ── Custom Scrollbar ───────────────────────────────────────── */
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-bg);
+  background: #0a0a0c;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-secondary);
+  background: #c9a96e;
 }
 
 /* ── Reduced Motion ─────────────────────────────────────────── */

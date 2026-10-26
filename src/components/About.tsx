@@ -3,7 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { personalInfo } from '../data/portfolio';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 35 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -15,111 +15,93 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative py-24 md:py-32 lg:py-40 overflow-hidden"
+      className="relative py-28 md:py-36 lg:py-44 border-t border-border overflow-hidden"
     >
-      {/* Subtle background accent */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-accent)]/[0.03] rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      {/* Subtle background glow */}
+      <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-accent/[0.03] rounded-full blur-[140px] -translate-y-1/2 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-          {/* Label Column */}
+          {/* Label & Sticky Header */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-4"
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-4 lg:sticky lg:top-32"
           >
-            <p className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)] mb-3"
-               style={{ fontFamily: 'var(--font-display)' }}>
-              About
-            </p>
-            <h2
-              className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              The person
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-accent/20 bg-accent-dim text-accent text-xs font-mono uppercase tracking-widest mb-6">
+              About Me
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight leading-[1.15] text-text">
+              The engineer
               <br />
               behind the
               <br />
-              <span className="text-[var(--color-accent)]">code.</span>
+              <span className="text-accent">interfaces.</span>
             </h2>
           </motion.div>
 
-          {/* Content Column */}
-          <div className="lg:col-span-8 space-y-8">
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              animate={isInView ? 'visible' : 'hidden'}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="text-lg md:text-xl text-[var(--color-text)] leading-relaxed"
-            >
-              {personalInfo.bio}
-            </motion.p>
-
-            <motion.p
-              variants={fadeUp}
-              initial="hidden"
-              animate={isInView ? 'visible' : 'hidden'}
-              transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="text-base md:text-lg text-[var(--color-text-secondary)] leading-relaxed"
-            >
-              {personalInfo.approach}
-            </motion.p>
-
-            {/* Visual separator */}
+          {/* Narrative & Values */}
+          <div className="lg:col-span-8 space-y-12">
             <motion.div
               variants={fadeUp}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
-              transition={{ duration: 0.7, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center gap-4 pt-4"
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="space-y-6"
             >
-              <div className="h-px flex-1 bg-[var(--color-border)]" />
-              <span className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
-                What drives me
-              </span>
-              <div className="h-px flex-1 bg-[var(--color-border)]" />
+              <p className="text-xl sm:text-2xl text-text font-normal leading-relaxed">
+                {personalInfo.bio}
+              </p>
+              <p className="text-base sm:text-lg text-text-secondary leading-relaxed">
+                {personalInfo.approach}
+              </p>
             </motion.div>
 
-            {/* Values Grid */}
+            {/* Principles Cards */}
             <motion.div
               variants={fadeUp}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
-              transition={{ duration: 0.7, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+              transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="pt-6"
             >
-              {[
-                {
-                  title: 'Craft',
-                  description: 'I write clean, maintainable code that stands the test of time.',
-                },
-                {
-                  title: 'Impact',
-                  description: 'I build products that solve real problems for real people.',
-                },
-                {
-                  title: 'Growth',
-                  description: 'I continuously learn new technologies and refine my approach.',
-                },
-              ].map((value) => (
-                <div
-                  key={value.title}
-                  className="p-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-secondary)]/50 hover:border-[var(--color-accent)]/20 transition-colors duration-500"
-                >
-                  <p
-                    className="text-sm font-semibold text-[var(--color-accent)] mb-2"
-                    style={{ fontFamily: 'var(--font-display)' }}
+              <p className="text-xs font-mono uppercase tracking-widest text-text-muted mb-6">
+                Guiding Principles
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {[
+                  {
+                    title: 'Precision Craft',
+                    description:
+                      'Writing maintainable, clean code that prioritizes correctness, performance, and long-term stability.',
+                  },
+                  {
+                    title: 'Human-First Design',
+                    description:
+                      'Designing digital products with intuitive ergonomics, accessibility, and zero unnecessary visual friction.',
+                  },
+                  {
+                    title: 'Continuous Mastery',
+                    description:
+                      'Constantly expanding technical depth across modern frontend architecture, backend services, and databases.',
+                  },
+                ].map((val) => (
+                  <div
+                    key={val.title}
+                    className="group relative p-7 rounded-2xl border border-border bg-bg-card/70 hover:bg-bg-card hover:border-accent/40 transition-all duration-300 shadow-lg"
                   >
-                    {value.title}
-                  </p>
-                  <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-                    {value.description}
-                  </p>
-                </div>
-              ))}
+                    <div className="w-8 h-1 bg-accent/40 rounded-full mb-6 group-hover:w-12 group-hover:bg-accent transition-all duration-300" />
+                    <h3 className="text-lg font-display font-semibold text-text mb-3">
+                      {val.title}
+                    </h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">
+                      {val.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>

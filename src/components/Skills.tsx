@@ -12,71 +12,71 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="py-24 md:py-32 lg:py-40 bg-[var(--color-bg-secondary)]"
+      className="py-28 md:py-36 lg:py-44 border-t border-border bg-bg-secondary/40"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16 md:mb-20"
+          initial={{ opacity: 0, y: 35 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
+          className="max-w-2xl mb-16 md:mb-24"
         >
-          <p
-            className="text-xs uppercase tracking-[0.3em] text-[var(--color-accent)] mb-3"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            Expertise
-          </p>
-          <h2
-            className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight"
-            style={{ fontFamily: 'var(--font-display)' }}
-          >
-            Technical
-            <br />
-            <span className="text-[var(--color-accent)]">toolbox.</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-accent/20 bg-accent-dim text-accent text-xs font-mono uppercase tracking-widest mb-6">
+            Technical Arsenal
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight text-text leading-[1.15] mb-6">
+            Modern, battle-tested <br />
+            <span className="text-accent">technologies.</span>
           </h2>
+          <p className="text-base sm:text-lg text-text-secondary leading-relaxed">
+            I specialize in reliable, performant web stacks with strong TypeScript interfaces,
+            robust backend APIs, and efficient relational databases.
+          </p>
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {categories.map((category, catIndex) => (
             <motion.div
               key={category.label}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
               transition={{
-                duration: 0.7,
+                duration: 0.75,
                 delay: catIndex * 0.1,
-                ease: [0.22, 1, 0.36, 1],
+                ease: [0.22, 1, 0.36, 1] as const,
               }}
-              className="group p-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg)]/60 hover:border-[var(--color-accent)]/20 transition-all duration-500"
+              className="p-8 rounded-3xl border border-border bg-bg-card hover:border-accent/40 hover:-translate-y-1 transition-all duration-300 shadow-xl flex flex-col justify-between"
             >
-              {/* Category Header */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-2 h-2 rounded-full bg-[var(--color-accent)]" />
-                <h3
-                  className="text-sm font-semibold uppercase tracking-[0.15em] text-[var(--color-text)]"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  {category.label}
-                </h3>
-              </div>
+              <div>
+                {/* Header */}
+                <div className="flex items-center justify-between pb-6 mb-6 border-b border-border">
+                  <h3 className="text-lg font-display font-semibold text-text tracking-tight">
+                    {category.label}
+                  </h3>
+                  <span className="w-2.5 h-2.5 rounded-full bg-accent/80" />
+                </div>
 
-              {/* Skills List */}
-              <ul className="space-y-3">
-                {category.items.map((skill) => (
-                  <li
-                    key={skill}
-                    className="text-sm text-[var(--color-text-secondary)] flex items-center gap-2.5 group/item"
-                  >
-                    <span className="w-1 h-1 rounded-full bg-[var(--color-border)] group-hover/item:bg-[var(--color-accent)] transition-colors duration-300" />
-                    <span className="group-hover/item:text-[var(--color-text)] transition-colors duration-300">
+                {/* Items */}
+                <div className="flex flex-wrap gap-2.5">
+                  {category.items.map((skill) => (
+                    <span
+                      key={skill}
+                      className="text-xs font-mono px-3.5 py-2 rounded-xl bg-white/[0.03] border border-border text-text-secondary hover:text-text hover:border-accent/40 hover:bg-accent-dim transition-all duration-200"
+                    >
                       {skill}
                     </span>
-                  </li>
-                ))}
-              </ul>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom decorative bar */}
+              <div className="pt-8 mt-6">
+                <div className="h-0.5 w-full bg-border/60 rounded-full overflow-hidden">
+                  <div className="h-full bg-accent/40 w-1/3 rounded-full" />
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

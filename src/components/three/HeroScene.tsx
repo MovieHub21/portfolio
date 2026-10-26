@@ -13,22 +13,22 @@ interface HeroSceneProps {
 function SceneLighting() {
   return (
     <>
-      <ambientLight intensity={0.15} />
+      <ambientLight intensity={0.35} />
       <directionalLight
-        position={[5, 5, 5]}
-        intensity={1.2}
-        color="#f0ece4"
+        position={[5, 6, 5]}
+        intensity={1.8}
+        color="#f5f0ea"
         castShadow={false}
       />
       <directionalLight
-        position={[-3, -2, 4]}
-        intensity={0.4}
+        position={[-4, -3, 3]}
+        intensity={0.9}
         color="#c9a96e"
       />
       <pointLight
-        position={[0, 3, -3]}
-        intensity={0.6}
-        color="#4a6fa5"
+        position={[0, 4, -2]}
+        intensity={0.8}
+        color="#6488c4"
         distance={15}
         decay={2}
       />
@@ -49,41 +49,40 @@ export default function HeroScene({ scrollProgress }: HeroSceneProps) {
     setPointer({ x, y });
   }, [isMobile, prefersReduced]);
 
-  // Fade out canvas as user scrolls past hero
-  const opacity = Math.max(1 - scrollProgress * 2.5, 0);
+  const opacity = Math.max(1 - scrollProgress * 1.4, 0.15);
 
   if (prefersReduced) {
-    // Static fallback for reduced motion
     return (
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="w-full h-full flex items-center justify-center pointer-events-none">
         <div
-          className="w-48 h-48 md:w-72 md:h-72 rounded-3xl rotate-45 border border-[var(--color-accent)]/20"
-          style={{ opacity: 0.3 }}
-        />
+          className="w-48 h-48 sm:w-64 sm:h-64 rounded-3xl rotate-45 border border-accent/25 bg-accent-dim/30 flex items-center justify-center"
+        >
+          <div className="w-24 h-24 rounded-2xl rotate-45 border border-accent/40" />
+        </div>
       </div>
     );
   }
 
   return (
     <div
-      className="absolute inset-0 pointer-events-auto"
+      className="w-full h-full relative cursor-grab active:cursor-grabbing"
       style={{
         opacity,
-        transition: 'opacity 0.1s linear',
+        transition: 'opacity 0.2s ease-out',
         willChange: 'opacity',
       }}
       onPointerMove={handlePointerMove}
       aria-hidden="true"
     >
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 45 }}
+        camera={{ position: [0, 0, 5.5], fov: 45 }}
         dpr={isMobile ? [1, 1.5] : [1, 2]}
         gl={{
           antialias: true,
           alpha: true,
           powerPreference: 'high-performance',
         }}
-        style={{ background: 'transparent' }}
+        style={{ width: '100%', height: '100%', background: 'transparent' }}
       >
         <SceneLighting />
         <Suspense fallback={null}>
@@ -91,7 +90,7 @@ export default function HeroScene({ scrollProgress }: HeroSceneProps) {
             pointerPosition={pointer}
             scrollProgress={scrollProgress}
           />
-          <Environment preset="city" environmentIntensity={0.4} />
+          <Environment preset="city" environmentIntensity={0.5} />
         </Suspense>
       </Canvas>
     </div>
