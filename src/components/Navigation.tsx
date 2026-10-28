@@ -61,7 +61,7 @@ export default function Navigation() {
             }}
             className="font-display text-xl font-bold tracking-tight text-text hover:text-accent transition-colors duration-300 flex items-center gap-1"
           >
-            <span>MARVELLOUS</span>
+            <span>Marvellous</span>
             <span className="text-accent text-2xl leading-none">.</span>
           </a>
 

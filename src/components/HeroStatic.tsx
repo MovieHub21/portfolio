@@ -58,7 +58,7 @@ export default function HeroStatic() {
               custom={0.25}
               className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight leading-[1.1] font-display text-text mb-6"
             >
-              Building web products that{' '}
+              I build web products that{' '}
               <span className="relative inline-block text-accent">
                 actually work
                 <svg

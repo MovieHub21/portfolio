@@ -3,7 +3,7 @@ export const personalInfo = {
   title: 'Web Developer',
   headline: 'I build digital experiences that work.',
   subheadline: 'Clean code, thoughtful design, and products that people actually enjoy using.',
-  bio: `I'm Marvellous, a web developer who turns ideas into interactive, fast, and polished digital products. I care about writing code that makes sense, designing interfaces that feel right, and building things that solve real problems.`,
+  bio: `I'm Marvellous — a web developer who turns ideas into interactive, fast, and polished digital products. I care about writing code that makes sense, designing interfaces that feel right, and building things that solve real problems.`,
   approach: `I believe great software comes from understanding the problem deeply before writing a single line of code. I focus on clean architecture, intuitive user experiences, and shipping products that work reliably across every device.`,
   email: 'marvellousoseh3@gmail.com',
   social: {
