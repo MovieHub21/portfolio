@@ -4,8 +4,9 @@ import * as THREE from 'three';
 import {
   SCREEN_W,
   SCREEN_H,
-  buildScreenScript,
-  renderTerminalScreen,
+  buildScript,
+  drawScreen,
+  totalChars,
 } from './screenScript';
 import type { BrowserProfile } from '../../hooks/useBrowserProfile';
 
@@ -19,14 +20,15 @@ export default function LaptopCanvasScreen({
   scrollProgress,
 }: LaptopCanvasScreenProps) {
   const materialRef = useRef<THREE.MeshBasicMaterial>(null);
-  const scriptLines = useMemo(() => buildScreenScript(profile), [profile]);
+  const compact = profile.tier === 'low';
+  const scriptLines = useMemo(
+    () => buildScript({ greeting: `${profile.browser} · ${profile.os}`, compact }),
+    [profile.browser, profile.os, compact]
+  );
 
   // Compute total characters in the script
   const totalCharacters = useMemo(() => {
-    return scriptLines.reduce(
-      (sum, line) => sum + line.reduce((lSum, seg) => lSum + seg.t.length, 0),
-      0
-    );
+    return totalChars(scriptLines);
   }, [scriptLines]);
 
   // Create canvas and texture once cleanly
@@ -66,7 +68,12 @@ export default function LaptopCanvasScreen({
 
     const showCursor = Math.floor(time * 2.5) % 2 === 0;
 
-    renderTerminalScreen(ctx, scriptLines, charBudget, showCursor);
+    drawScreen(ctx, scriptLines, {
+      title: 'about-me.md',
+      budget: charBudget,
+      compact,
+      cursorOn: showCursor,
+    });
 
     if (materialRef.current?.map) {
       materialRef.current.map.needsUpdate = true;
