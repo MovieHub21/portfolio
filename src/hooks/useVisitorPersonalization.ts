@@ -28,20 +28,20 @@ function calculateContext(): VisitorContext {
   const now = new Date();
   const hour = now.getHours();
 
-  let greeting = 'Welcome, developer.';
+  let greeting = 'Welcome';
   let timeOfDay: VisitorContext['timeOfDay'] = 'afternoon';
 
   if (hour >= 5 && hour < 12) {
-    greeting = 'Good morning, developer.';
+    greeting = 'Good morning';
     timeOfDay = 'morning';
   } else if (hour >= 12 && hour < 17) {
-    greeting = 'Good afternoon, developer.';
+    greeting = 'Good afternoon';
     timeOfDay = 'afternoon';
   } else if (hour >= 17 && hour < 22) {
-    greeting = 'Good evening, developer.';
+    greeting = 'Good evening';
     timeOfDay = 'evening';
   } else {
-    greeting = 'Burning the midnight oil? Welcome.';
+    greeting = 'Welcome.';
     timeOfDay = 'night';
   }
 
